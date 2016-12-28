@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import RedBox from 'redbox-react';
+import AWS from 'aws-sdk';
 import createStore from './store/createStore';
 import AppContainer from './containers/AppContainer';
-import RedBox from 'redbox-react';
 import createRoutes from './routes';
+
+// Initialize the Amazon Cognito credentials provider
+AWS.config.region = 'ap-northeast-2'; // Region
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+  IdentityPoolId: 'ap-northeast-2:9f9cfb01-954c-482c-b54c-43a7198c6c0d',
+});
 
 const store = createStore();
 
@@ -22,6 +29,7 @@ let render = () => {
 };
 
 // This code is excluded from production bundle
+console.log(__AWS_COGNITO_USER_POOL_ID__);
 if (__DEV__ && module.hot) {
   // Development render functions
   const renderApp = render;

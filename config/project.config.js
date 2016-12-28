@@ -84,6 +84,8 @@ config.globals = {
   __TEST__     : config.env === 'test',
   __COVERAGE__ : !argv.watch && config.env === 'test',
   __BASENAME__ : JSON.stringify(process.env.BASENAME || ''),
+  __AWS_COGNITO_USER_POOL_ID__: '"ap-northeast-2_zuJXfboqp"',
+  __AWS_COGNITO_APP_ID__: '"7oictofrh3offps9g4ls9v8spm"',
 };
 
 // ------------------------------------

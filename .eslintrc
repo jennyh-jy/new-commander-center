@@ -17,7 +17,9 @@
     "__DEV__": false,
     "__TEST__": false,
     "__PROD__": false,
-    "__COVERAGE__": false
+    "__COVERAGE__": false,
+    "__AWS_COGNITO_USER_POOL_ID__": false,
+    "__AWS_COGNITO_APP_ID__": false
   },
   "rules": {
     "key-spacing": 0,
