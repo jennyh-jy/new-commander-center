@@ -12,6 +12,9 @@ const Header = () => (
     <Link to='/counter' activeClassName='route--active'>
       Counter
     </Link>
+    <Link to='/signUp' activeClassName='route--active'>
+      Sign Up
+    </Link>
   </div>
 );
 

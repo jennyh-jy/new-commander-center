@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const cssnano = require('cssnano');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const project = require('./project.config');
 const debug = require('debug')('app:config:webpack');
 
@@ -66,6 +67,9 @@ webpackConfig.plugins = [
       collapseWhitespace: true,
     },
   }),
+  new CopyPlugin([{
+    from: project.paths.lib(),
+  }]),
 ];
 
 // Ensure that the compiler exits on errors during testing so that

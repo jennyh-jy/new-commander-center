@@ -24,7 +24,7 @@ const mapDispatchToProps = {
   trySignUp,
 };
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => state.signUp;
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 

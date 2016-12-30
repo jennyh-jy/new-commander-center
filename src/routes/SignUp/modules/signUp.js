@@ -1,5 +1,3 @@
-import AWS from 'aws-sdk';
-
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -32,19 +30,18 @@ export const trySignUp = () => (dispatch, getState) => new Promise((resolve) => 
     type: TRY_SIGNUP,
   });
 
-  console.log(AWS.config);
-
+  console.log(getState());
   const {
     email,
     userName,
     password,
-  } = getState();
+  } = getState().signUp;
 
   const poolData = {
-    //UserPoolId: __AWS_COGNITO_USER_POOL_ID__,
-    //ClientId: __AWS_COGNITO_APP_ID__,
+    UserPoolId: __AWS_COGNITO_USER_POOL_ID__,
+    ClientId: __AWS_COGNITO_APP_ID__,
   };
-  const userPool = new AWS.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
+  const userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
 
   const attributeList = [];
 
@@ -53,28 +50,26 @@ export const trySignUp = () => (dispatch, getState) => new Promise((resolve) => 
     Value : email,
   };
 
-  const attributeEmail = new AWS.CognitoIdentityServiceProvider.CognitoUserAttribute(dataEmail);
+  const attributeEmail = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataEmail);
 
   attributeList.push(attributeEmail);
 
-  userPool.signUp(userName, password, attributeList, null).promise()
-  .then((result) => {
-    const cognitoUser = result.user;
-    dispatch({
-      type: ON_SIGNUP_RESPONSE,
-      isSuccess: true,
-      payload: result,
-    });
-    console.log(`user name is ${cognitoUser.getUsername()}`);
-  })
-  .catch((err) => {
-    dispatch({
-      type: ON_SIGNUP_RESPONSE,
-      isSuccess: false,
-      payload: err,
-    });
-  })
-  .then(() => {
+  userPool.signUp(userName, password, attributeList, null, (err, result) => {
+    if (err) {
+      dispatch({
+        type: ON_SIGNUP_RESPONSE,
+        isSuccess: false,
+        payload: err,
+      });
+    } else {
+      const cognitoUser = result.user;
+      dispatch({
+        type: ON_SIGNUP_RESPONSE,
+        isSuccess: true,
+        payload: result,
+      });
+      console.log(`user name is ${cognitoUser.getUsername()}`);
+    }
     resolve();
   });
 });

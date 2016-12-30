@@ -7,7 +7,7 @@ export default store => ({
   /*  Async getComponent is only invoked when route matches   */
   getComponent(nextState, cb) {
     /*  Add the reducer to the store on key 'counter'  */
-    injectReducer(store, { key: 'counter', reducer });
+    injectReducer(store, { key: 'signUp', reducer });
 
     /*  Return getComponent   */
     cb(null, container);

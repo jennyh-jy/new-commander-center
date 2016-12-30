@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RedBox from 'redbox-react';
-import AWS from 'aws-sdk';
 import createStore from './store/createStore';
 import AppContainer from './containers/AppContainer';
 import createRoutes from './routes';
